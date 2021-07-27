@@ -18,12 +18,6 @@ const directives = (app: any) => {
     })
 }
 
-export default (app: any, _router: any, axios: any) => {
-    axios.interceptors.response.use(undefined, (error: any) => {
-        if (error.response.status === 401)
-            return Promise.reject(error)
-    })
-
-
+export default (app: any, _router: any) => {
     directives(app)
 }

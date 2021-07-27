@@ -3,8 +3,21 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'Home',
-    component: () => import('../views/Home.vue'),
+    name: 'Wrapper',
+    redirect: { name: 'Home' },
+    component: () => import('../views/Wrapper.vue'),
+    children: [
+      {
+        path: '',
+        name: 'Home',
+        component: () => import('../views/Home.vue'),
+      },
+      {
+        path: '/post/:id',
+        name: 'Post',
+        component: () => import('../views/Post.vue'),
+      },
+    ]
   },
   { path: "/:catchAll(.*)", redirect: '/' }
 ]

@@ -1,32 +1,28 @@
 <template>
-  <section class="wrapper">
-    <header class="header"></header>
+  <section class="posts " v-if="posts.loading">
+    <article v-for="(post, index) in posts.data" :key="index">
+      <h4>{{ post.title }}</h4>
+      <p>{{ post.body }}</p>
 
-    <main class="main">
-      <section class="sidebar">
-        <nav class="sidebar_users-list"></nav>
-      </section>
-      <section class="contain">
-        <router-view />
-      </section>
-    </main>
+      <router-link :to="{ path: `/post/${post.id}` }">More...</router-link>
+    </article>
   </section>
-
-  <footer class="footer"></footer>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { useStore } from 'vuex'
+import { PostsInterface } from '@/store/modules/postTypes'
+import { computed, defineComponent } from 'vue'
 export default defineComponent({
-  name: 'Home'
+  name: 'Home',
+  setup: () => {
+    const store = useStore()
+    const posts = computed((): PostsInterface[] => store.state.posts)
+
+    store.dispatch('posts/getAll')
+    store.dispatch('posts/get', 1)
+
+    return { posts }
+  }
 })
 </script>
-
-<style lang="postcss">
-.wrapper {
-  flex: 1 0 auto;
-}
-.footer {
-  flex-shrink: 0;
-}
-</style>
