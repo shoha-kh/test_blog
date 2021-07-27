@@ -1,0 +1,11 @@
+{
+  "globalComponents": [
+    // Relative paths
+    // "./src/components/global/basic/Button.vue",
+    // Glob
+    "**/global/*.{tsx,vue}",
+    // "**/global/basic/*.{tsx,vue}",
+    "library-vetur-component-data",
+    "library-web-types"
+  ]
+}

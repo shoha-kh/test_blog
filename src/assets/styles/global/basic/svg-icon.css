@@ -1,0 +1,17 @@
+.svg-icon {
+  overflow: hidden;
+  vertical-align: -0.15em;
+  @apply w-4 h-4;
+
+  &.fill {
+    fill: currentColor;
+  }
+
+  &.stroke {
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 2;
+  }
+}

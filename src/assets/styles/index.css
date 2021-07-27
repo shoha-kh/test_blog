@@ -1,0 +1,13 @@
+/* Global Components */
+@import "./global/basic/button.css";
+@import "./global/basic/svg-icon.css";
+
+/* TailwindCSS */
+@import "./tailwind.css";
+
+/* Other */
+@import "./variables.css";
+
+.bg-ghost {
+  background: var(--main-bg-color);
+}
