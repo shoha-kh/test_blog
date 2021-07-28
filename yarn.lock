@@ -1471,6 +1471,11 @@
     semver "^7.3.2"
     tsutils "^3.17.1"
 
+"@vue/apollo-util@^4.0.0-alpha.14":
+  version "4.0.0-alpha.14"
+  resolved "https://registry.yarnpkg.com/@vue/apollo-util/-/apollo-util-4.0.0-alpha.14.tgz#dc113b4c7f44b1701487b007aa38112ac096b162"
+  integrity sha512-pu/P5tH0B0ZxYwObtzap/udeiaPIhgQZgfycny5Ei6F3Gp4RWd64HumP+EeOUT9rTIjOg8ixXof/B4pJPBCSJQ==
+
 "@vue/babel-helper-vue-jsx-merge-props@^1.2.1":
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/@vue/babel-helper-vue-jsx-merge-props/-/babel-helper-vue-jsx-merge-props-1.2.1.tgz#31624a7a505fb14da1d58023725a4c5f270e6a81"

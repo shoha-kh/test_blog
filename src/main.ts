@@ -11,7 +11,7 @@ import extensions from './extensions'
 
 const app = createApp(App)
 
-extensions(app, router)
+extensions(app)
 
 app.use(router)
 app.use(store)

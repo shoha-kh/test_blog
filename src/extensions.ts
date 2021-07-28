@@ -18,6 +18,6 @@ const directives = (app: any) => {
     })
 }
 
-export default (app: any, _router: any) => {
+export default (app: any) => {
     directives(app)
 }
