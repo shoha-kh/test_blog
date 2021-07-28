@@ -17,9 +17,19 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Post',
         component: () => import('../views/Post.vue'),
       },
+      {
+        path: '/user/:id',
+        name: 'UserPosts',
+        component: () => import('../views/UserPosts.vue'),
+      },
     ]
   },
-  { path: "/:catchAll(.*)", redirect: '/' }
+  {
+    path: "/404",
+    name: 'NotFound',
+    component: () => import('../views/NotFound.vue'),
+  },
+  { path: "/:catchAll(.*)", redirect: '/404' }
 ]
 
 const router = createRouter({

@@ -66,17 +66,26 @@
 <script lang="ts">
 import { useStore } from 'vuex'
 import { PostsInterface } from '@/store/modules/postsTypes'
-import { computed, defineComponent } from 'vue'
+import { computed, defineComponent, watch } from 'vue'
+import { useRouter } from 'vue-router'
 export default defineComponent({
-  name: 'Home',
+  name: 'UserPosts',
   setup: () => {
     const store = useStore()
-    const posts = computed((): PostsInterface[] => store.state.posts)
-    const links = computed(() => store.state.posts.links)
+    const router = useRouter()
+    const userId = computed(() => router.currentRoute.value.params.id)
+    const posts = computed((): PostsInterface[] => store.state.userPosts)
+    const links = computed(() => store.state.userPosts.links)
 
-    store.dispatch('posts/getAll')
+    store.dispatch('userPosts/getAll', { userId: userId.value })
 
-    const updatePosts = paginate => store.dispatch('posts/getAll', paginate)
+    const updatePosts: any = paginate =>
+      store.dispatch('userPosts/getAll', { userId: userId.value, paginate })
+
+    watch(
+      () => userId.value,
+      () => updatePosts()
+    )
 
     return { posts, links, updatePosts }
   }

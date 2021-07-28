@@ -16,7 +16,11 @@
           <h6 class="text-xs">User list:</h6>
           <nav class="list-none text-base" v-if="users.loading">
             <li v-for="(user, index) in users.data" :key="index">
-              {{ user.name }}
+              <router-link
+                class="cursor-pointer"
+                :to="{ path: `/user/${user.id}` }"
+                >{{ user.name }}</router-link
+              >
             </li>
           </nav>
           <span v-else>Loading...</span>

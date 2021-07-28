@@ -88,39 +88,47 @@ export default {
         commit('ADD_POST', response.data.post)
     },
     async getAll ({ commit }, option) {
+      if (!option.userId) return
+
       commit('CLEAR_DATA')
 
       const data = {
         query: gql`
-          query($options: PageQueryOptions) {
-            posts(options: $options) {
-              data {
-                id
-                title
-                body
-              }
-              links {
-                first {
-                  page
-                  limit
+          query(
+            $id: ID!
+            $options: PageQueryOptions
+          ) {
+            user(id: $id) {
+              posts(options: $options) {
+                data {
+                  id
+                  title
+                  body
                 }
-                prev {
-                  page
-                  limit
-                }
-                next {
-                  page
-                  limit
-                }
-                last {
-                  page
-                  limit
+                links {
+                  first {
+                    page
+                    limit
+                  }
+                  prev {
+                    page
+                    limit
+                  }
+                  next {
+                    page
+                    limit
+                  }
+                  last {
+                    page
+                    limit
+                  }
                 }
               }
             }
           }
         `,
         variables: {
+          id: option.userId,
           options: {
             paginate: {
               page: 1,
@@ -130,14 +138,14 @@ export default {
         },
       }
 
-      if (option !== undefined)
+      if (option.paginate !== undefined)
         data.variables.options.paginate = {
-          page: option.page,
-          limit: option.limit
+          page: option.paginate.page,
+          limit: option.paginate.limit
         }
 
       const response = await graphqlClient.query(data);
-      const posts = response.data.posts
+      const posts = response.data.user.posts
 
       //TODO: For some reason I get the answer false from response.loading
       await posts.data.forEach(post => commit('ADD_POST', post))

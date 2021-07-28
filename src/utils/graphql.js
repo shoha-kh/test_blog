@@ -1,3 +1,4 @@
+import { store } from '@/store';
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
 import { onError } from '@apollo/client/link/error'
 import { logErrorMessages } from '@vue/apollo-util'
@@ -9,6 +10,14 @@ const httpLink = createHttpLink({
 })
 
 const errorLink = onError(error => {
+  if (error.networkError) {
+    store.state.errorWindow.isActive = true
+    store.state.errorWindow.message = {
+      statusCode: error.networkError.statusCode,
+      name: error.networkError.name
+    }
+  }
+
   if (process.env.NODE_ENV !== 'production') {
     logErrorMessages(error)
   }

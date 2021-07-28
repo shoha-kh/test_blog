@@ -1,14 +1,14 @@
 
 export interface PostsInterface extends Object {
   data: PostInterface[]
-  loading: boolean
   links: any
+  loading: boolean
 }
 
-type link = {
-  page: number
-  limit: number
-}
+// type link = {
+//   page: number
+//   limit: number
+// }
 
 export interface PostInterface extends Object {
   id: string
