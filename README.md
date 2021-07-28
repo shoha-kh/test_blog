@@ -16,4 +16,6 @@ Stop time: 16:36 - 28 July
 Continue time: 16:46 - 28 July
 
 stop test: 18:40 - 28 July
+
+Add visited color for posts page: 18:40 - 28 July
 ```

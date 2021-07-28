@@ -1,7 +1,12 @@
 <template>
   <section class="p-6" v-if="posts.loading">
     <article class="pb-3 mb-6" v-for="(post, index) in posts.data" :key="index">
-      <h4 class="font-medium text-xl pb-3">{{ post.title }}</h4>
+      <router-link
+        class="text-purple-500 visited:text-gray-600"
+        :to="{ path: `/post/${post.id}` }"
+      >
+        <h4 class="font-medium text-xl pb-3">{{ post.title }}</h4>
+      </router-link>
       <p>{{ post.body }}</p>
 
       <router-link class="text-purple-500" :to="{ path: `/post/${post.id}` }"
