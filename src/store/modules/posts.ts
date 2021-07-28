@@ -1,10 +1,16 @@
-import { PostsInterface } from './postTypes'
+import { PostsInterface } from './postsTypes'
 
 import gql from 'graphql-tag'
 import graphqlClient from '@/utils/graphql'
 
 const state: PostsInterface = {
   data: [],
+  links: {
+    first: null,
+    prev: null,
+    next: null,
+    last: null
+  },
   loading: false
 }
 
@@ -35,6 +41,18 @@ export default {
       }
     },
 
+    UPDATE_LINKS (state, payload) {
+      Object.keys(payload).forEach(link => {
+        if (payload[link] === null) {
+          state.links[link] = null
+          return
+        }
+        state.links[link] = {
+          page: payload[link].page,
+          limit: payload[link].limit
+        }
+      })
+    },
     IS_LOADING (state, payload) {
       state.loading = payload
     },
@@ -69,10 +87,10 @@ export default {
       else
         commit('ADD_POST', response.data.post)
     },
-    async getAll ({ commit }) {
+    async getAll ({ commit }, option: undefined | { limit: number; page: number }) {
       commit('CLEAR_DATA')
 
-      const response = await graphqlClient.query({
+      const query = {
         query: gql`
           query($options: PageQueryOptions) {
             posts(options: $options) {
@@ -81,8 +99,23 @@ export default {
                 title
                 body
               }
-              meta {
-                totalCount
+              links {
+                first {
+                  page
+                  limit
+                }
+                prev {
+                  page
+                  limit
+                }
+                next {
+                  page
+                  limit
+                }
+                last {
+                  page
+                  limit
+                }
               }
             }
           }
@@ -95,10 +128,19 @@ export default {
             }
           }
         },
-      });
+      }
+
+      if (option !== undefined)
+        query.variables.options.paginate = {
+          page: Number(option.page),
+          limit: Number(option.limit)
+        }
+
+      const response = await graphqlClient.query(query);
 
       //TODO: For some reason I get the answer false from response.loading
       await response.data.posts.data.forEach(post => commit('ADD_POST', post))
+      commit('UPDATE_LINKS', response.data.posts.links)
       commit('IS_LOADING', true)
     },
   },

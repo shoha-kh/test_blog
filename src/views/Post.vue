@@ -1,13 +1,14 @@
 <template>
-  <section class="post" v-if="loading">
-    <h4>{{ post.title }}</h4>
+  <section class="p-6" v-if="loading">
+    <h4 class="font-medium text-xl pb-3">{{ post.title }}</h4>
     <p>{{ post.body }}</p>
   </section>
+  <section v-else class="p-6">loading...</section>
 </template>
 
 <script lang="ts">
 import { useStore } from 'vuex'
-import { PostInterface } from '@/store/modules/postTypes'
+import { PostInterface } from '@/store/modules/postsTypes'
 import { computed, defineComponent, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 export default defineComponent({

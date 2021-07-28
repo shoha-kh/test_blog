@@ -2,8 +2,12 @@
 export interface PostsInterface extends Object {
   data: PostInterface[]
   loading: boolean
-  links?: []
-  meta?: string
+  links: any
+}
+
+type link = {
+  page: number
+  limit: number
 }
 
 export interface PostInterface extends Object {
